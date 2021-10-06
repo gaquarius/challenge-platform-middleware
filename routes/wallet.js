@@ -33,7 +33,7 @@ router.post('/new', async (req, res) => {
   }
 });
 
-router.get('/balance', async (req, res) => {
+router.post('/balance', async (req, res) => {
   if (req.user.name && req.user.name === process.env.JWT_USERNAME) {
     const { mnemonic } = req.body;
     if (!mnemonic) {
