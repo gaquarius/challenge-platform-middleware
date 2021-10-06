@@ -34,7 +34,6 @@ router.post('/new', async (req, res) => {
 });
 
 router.post('/balance', async (req, res) => {
-  console.log('hey', req.body.mnemonic);
   if (req.user.name && req.user.name === process.env.JWT_USERNAME) {
     const { mnemonic } = req.body;
     if (!mnemonic) {
@@ -44,14 +43,17 @@ router.post('/balance', async (req, res) => {
       });
       return;
     }
-    const client = new Client({
-      network: process.env.DASH_NETWORK,
-      wallet: {
-        mnemonic
-      }
-    });
     try {
+      console.log(process.env.DASH_NETWORK);
+      const client = new Client({
+        network: process.env.DASH_NETWORK,
+        wallet: {
+          mnemonic
+        }
+      });
+      console.log('client created');
       const account = await client.getWalletAccount();
+      console.log(account);
       res.json({
         message: 'success',
         data: {
